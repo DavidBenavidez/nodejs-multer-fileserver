@@ -25,11 +25,3 @@ export const getBucket = async () => {
 
   return buckets[0];
 }
-
-
-const create = async (file) => {
-  const bucket = await getBucket();
-  const blob = bucket.file(file.originalname);
-  const blobStream = blob.createWriteStream();
-
-}

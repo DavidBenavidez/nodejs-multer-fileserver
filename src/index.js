@@ -7,13 +7,9 @@ import {} from 'dotenv/config';
 import {
   localConnect,
 } from './config/connection';
-import {
-  getBuckets,
-} from './config/googleconnection';
-import { jsonResponse } from './middlewares'
+import { jsonResponse } from './middlewares';
 import routes from './routes';
 
-getBuckets();
 const app = express();
 
 // default headers, bodyparser, and logger

@@ -25,7 +25,7 @@ async function validateUpload(req, res, next) {
 
     // Calculate final upload size
     // Users current uploadLimit + file size limit
-    const finalUploadSize = +uploadLimit + +req.file.size;
+    const finalUploadSize = +uploadLimit + +req.file?.size;
 
     if(finalUploadSize >= +UPLOAD_LIMIT) {
       return res.status(400).jsonResponse(null, {

@@ -5,6 +5,7 @@
 export default function makeCreateFile({
   fileRepository,
   userRepository,
+  googleFileRepository,
   helpers,
 }) {
   return async function createFile(req) {

@@ -12,7 +12,7 @@ export default function makeListFiles({
     try {
       const files = await fileRepository.findAll();
       const filenames = files.map((file) => file.filename);
-      const localFilePath = path.resolve(__dirname, '../../public/files');
+      const localFilePath = process.env.FOLDER;
       const localFiles = fs.readdirSync(localFilePath);
 
       // delete file if its not in db

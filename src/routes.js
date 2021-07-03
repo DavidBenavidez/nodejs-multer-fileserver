@@ -14,7 +14,7 @@ const filename = (_, file, callback) => {
 
 // Setup multer
 const storage = multer.diskStorage({
-  destination: path.resolve(__dirname, '../public/files'),
+  destination: process.env.FOLDER,
   filename,
 });
 

@@ -116,6 +116,10 @@ export class FileshareClient extends LitElement {
         </section>
 
         <paper-toast id="toaster" text=${this.toasterMessage}></paper-toast>
+
+        <paper-button>
+          Use Google Cloud Storage
+        </paper-button>
       </main>
     `;
   }
@@ -126,8 +130,7 @@ export class FileshareClient extends LitElement {
     });
 
     const data = await response.json();
-    console.log('data')
-    console.log(data)
+
     if(data.code !== 200) {
       this.toasterMessage = data.error;
       this.toaster.open();
