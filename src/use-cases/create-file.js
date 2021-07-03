@@ -1,3 +1,7 @@
+/**
+ * Makes the createFile usecases
+ * @param {Object} param0 dependencies
+ */
 export default function makeCreateFile({
   fileRepository,
   userRepository,

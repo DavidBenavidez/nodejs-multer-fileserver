@@ -1,3 +1,8 @@
+/**
+ * Makes the user repository by
+ * injecting the database
+ * @param {Object} param0 dependencies
+ */
 export default function makeUserRepository({ database }) {
   async function updateOne(localIp, options = {}){
     const { size } = options;

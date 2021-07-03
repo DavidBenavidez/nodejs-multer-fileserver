@@ -12,6 +12,7 @@ const filename = (_, file, callback) => {
   callback(null, `${timestamp}-${file.originalname}`);
 }
 
+// Setup multer
 const storage = multer.diskStorage({
   destination: path.resolve(__dirname, '../public/files'),
   filename,
@@ -19,12 +20,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage,
-  // fileFilter,
  });
-
- router.get('/', function(_, res){
-   res.sendFile(path.resolve(__dirname, '../public/index.html'));
-  });
 
 // File consumers
 router.get('/files/:publicKey', filesController.get);
@@ -33,6 +29,5 @@ router.get('/files', filesController.list);
 // File owners
 router.post('/files', [upload.single('sfile'), validations.validateUpload], filesController.create);
 router.delete('/files/:privateKey', filesController.delete);
-
 
 export default router;

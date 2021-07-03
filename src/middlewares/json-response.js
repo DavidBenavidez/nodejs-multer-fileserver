@@ -1,6 +1,10 @@
 import { defaultStatusCodes } from '../helpers';
 
-export default (req, res, next) => {
+/**
+ * Normalizes the json response for
+ * consistent responses.
+ */
+export default (_, res, next) => {
   const defaultResponse = (data = null, options = {}) => {
     let status = 'success';
     let message = options.message || null;
@@ -30,9 +34,6 @@ export default (req, res, next) => {
   };
 
   res.jsonResponse = (data = null, options = {}) => {
-    const format = req.query.format || req.body.format || options.format;
-
-    if (format === 'plain') return res.json(data);
     return defaultResponse(data, options);
   };
 

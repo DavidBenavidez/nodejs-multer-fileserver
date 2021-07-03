@@ -1,6 +1,13 @@
 import { localIpLookup } from '../helpers';
 import { User } from '../models';
 
+/**
+ * Middleware for checking if user
+ * has reached upload limit.
+ * @param {Object} req
+ * @param {Object} res
+ * @param {Function} next
+ */
 async function validateUpload(req, res, next) {
   try {
     // Get set upload limit from env

@@ -15,6 +15,7 @@ export const createFile = makeCreateFile({
   helpers,
 });
 export const deleteFile = makeDeleteFile({
+  helpers,
   fileRepository,
 });
 export const listFiles = makeListFiles({

@@ -1,6 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 
+/**
+ * Makes the list files use case
+ * @param {Object} param0 dependencies
+ */
 export default function makeListFiles({
   fileRepository
 }) {

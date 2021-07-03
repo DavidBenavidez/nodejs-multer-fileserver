@@ -1,3 +1,7 @@
+/**
+ * Makes the download file use case
+ * @param {Object} param0 dependencies
+ */
 export default function makeGetFile({
   helpers,
   fileRepository,

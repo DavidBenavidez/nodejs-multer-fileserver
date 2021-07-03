@@ -1,3 +1,8 @@
+/**
+ * Makes the file repository by injecting
+ * the database/model
+ * @param {Object} param0 dependencies
+ */
 export default function makeFileRepository({ database }) {
   async function create(file, options = {}){
     try {

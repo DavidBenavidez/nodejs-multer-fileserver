@@ -2,6 +2,14 @@
 
 const { networkInterfaces } = require('os');
 
+/**
+ * Gets the local ip of a user
+ *
+ * Current implementation uses local ip
+ * as I thought it's most logical for
+ * a local file sharing server
+ * @returns string
+ */
 export default function localIpLookup() {
   const nets = networkInterfaces();
   const results = Object.create(null); // Or just '{}', an empty object
