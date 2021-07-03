@@ -1,56 +1,37 @@
-import { File } from '../models';
-import { User } from '../models';
-import { iplookup } from '../helpers';
+import {
+  getDocumentExpireTime,
+  localIpLookup,
+ } from '../helpers';
 
-export default function makeCreateFile() {
+export default function makeCreateFile({
+  fileRepository,
+  userRepository,
+}) {
   return async function createFile(req) {
-    const ipObject = iplookup();
-    const { en0: ipAddresses } = ipObject;
-    const localIp = ipAddresses[0];
 
-    const {
-      filename,
-      originalname,
-      timestamp,
-      size,
-    } = req.file;
     try {
-      const { env = {} } = process;
+      const localIp = localIpLookup();
+      const expiresAt = getDocumentExpireTime();
       const {
-        CLEAN_UP_TIME_SECONDS = 86400,
-       } = env;
-      const cleanTime = +CLEAN_UP_TIME_SECONDS;
-      const dateNow = new Date();
-      const expiresAt = dateNow
-      .setSeconds(dateNow.getSeconds() + cleanTime);
+        file,
+        file: {
+          size,
+        }
+      } = req;
 
-      const newFile = await File.create({
+      const newFile = await fileRepository.create(file, {
+        localIp,
         expiresAt,
-        filename,
-        originalname,
-        publicKey: timestamp,
-        privateKey: `${timestamp}-${localIp}`,
-        size,
       });
+
+      await userRepository.updateOne(localIp, {
+        size,
+      })
 
       console.log('Successfully created new file: ', newFile);
 
-      await User.collection.updateOne(
-        { localIP: localIp },
-        {
-          $set: {
-            localIP: localIp,
-          },
-          $inc: {
-            downloadLimit: +size,
-            uploadLimit: +size,
-          }
-        },
-        { upsert: true },
-      );
-
       return {
-        publicKey: timestamp,
+        publicKey: req.file.timestamp,
         privateKey: localIp,
       };
     } catch (error) {

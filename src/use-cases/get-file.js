@@ -1,9 +1,34 @@
-import { File } from '../models';
+import { localIpLookup } from '../helpers';
 
-export default function makeGetFile() {
+export default function makeGetFile({
+  fileRepository,
+  userRepository,
+ }) {
   return async function getFile(req) {
     const { publicKey } = req.params;
-    const file = await File.findOne({ publicKey });
+    const file = await fileRepository.findOne(publicKey);
+    const user = await userRepository.findOne(localIpLookup());
+
+    // Get set download limit from env
+    const { env = {} } = process;
+    const {
+      DOWNLOAD_LIMIT,
+    } = env;
+
+    // Get user total download data from db
+    const {
+      downloadLimit,
+    } = user;
+
+    // Calculate final download size
+    // Users current downloadLimit + file size limit
+    const finalDownloadSize = +downloadLimit + +file.size;
+
+    if(finalDownloadSize >= +DOWNLOAD_LIMIT) {
+      return {
+        error: 'User download limit reached',
+      }
+    }
 
     return file;
   }

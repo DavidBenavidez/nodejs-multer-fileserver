@@ -2,7 +2,7 @@
 
 const { networkInterfaces } = require('os');
 
-export default function iplookup() {
+export default function localIpLookup() {
   const nets = networkInterfaces();
   const results = Object.create(null); // Or just '{}', an empty object
 
@@ -17,6 +17,8 @@ export default function iplookup() {
           }
       }
   }
+  const { en0: ipAddresses } = results;
+  const localIp = ipAddresses[0];
 
-  return results;
+  return localIp;
 }

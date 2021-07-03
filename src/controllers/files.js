@@ -15,9 +15,13 @@ export default function makeFilesController(useCases) {
 
   const get = async (req, res) => {
     const file = await useCases.getFile(req);
-    const localFilePath = path.resolve(__dirname, `../../public/files/${file.filename}`);
+    const localFilePath = path.resolve(__dirname, `../../public/files/${file?.filename}`);
 
-    res.download(localFilePath, file.originalname);
+    if(file.error) {
+      return res.status(400).jsonResponse(null, file);
+    }
+
+    return res.download(localFilePath, file.originalname);
   }
 
   const deleteFile = async (req, res) => {

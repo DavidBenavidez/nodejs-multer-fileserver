@@ -1,9 +1,9 @@
-import { File } from '../models';
-
-export default function makeDeleteFile() {
+export default function makeDeleteFile({
+  fileRepository,
+}) {
   return async function deleteFile(req) {
     const { privateKey } = req.params;
-    const response = await File.deleteOne({ privateKey });
+    const response = await fileRepository.deleteOne(privateKey);
 
     return {
       deletedCount: response.deletedCount

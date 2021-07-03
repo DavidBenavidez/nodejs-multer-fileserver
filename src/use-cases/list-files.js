@@ -1,11 +1,12 @@
 import fs from 'fs';
 import path from 'path';
-import { File } from '../models';
 
-export default function makeListFiles() {
+export default function makeListFiles({
+  fileRepository
+}) {
   return async function listFiles() {
     try {
-      const files = await File.find({});
+      const files = await fileRepository.findAll();
       const filenames = files.map((file) => file.filename);
       const localFilePath = path.resolve(__dirname, '../../public/files');
       const localFiles = fs.readdirSync(localFilePath);
