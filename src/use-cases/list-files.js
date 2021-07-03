@@ -19,9 +19,9 @@ export default function makeListFiles({
       return files;
     } catch (error) {
       console.log('Error in retrieving files: ', error);
-      return res.status(500).jsonResponse(null, {
+      return {
         error,
-      });
+      };
     }
   }
 }

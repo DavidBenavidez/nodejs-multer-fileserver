@@ -15,3 +15,5 @@ File sharing server using nodejs
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- injects repository \
 +-- respository \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- injects database
+
+"test": "mocha './src/**/*.spec.js' --require @babel/register --require @babel/polyfill"

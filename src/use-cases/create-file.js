@@ -1,17 +1,12 @@
-import {
-  getDocumentExpireTime,
-  localIpLookup,
- } from '../helpers';
-
 export default function makeCreateFile({
   fileRepository,
   userRepository,
+  helpers,
 }) {
   return async function createFile(req) {
-
     try {
-      const localIp = localIpLookup();
-      const expiresAt = getDocumentExpireTime();
+      const localIp = helpers.localIpLookup();
+      const expiresAt = helpers.getDocumentExpireTime();
       const {
         file,
         file: {

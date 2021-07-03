@@ -1,18 +1,17 @@
-import { localIpLookup } from '../helpers';
-
 export default function makeGetFile({
+  helpers,
   fileRepository,
   userRepository,
  }) {
   return async function getFile(req) {
     const { publicKey } = req.params;
     const file = await fileRepository.findOne(publicKey);
-    const user = await userRepository.findOne(localIpLookup());
+    const user = await userRepository.findOne(helpers.localIpLookup());
 
     // Get set download limit from env
     const { env = {} } = process;
     const {
-      DOWNLOAD_LIMIT,
+      DOWNLOAD_LIMIT = 100000,
     } = env;
 
     // Get user total download data from db

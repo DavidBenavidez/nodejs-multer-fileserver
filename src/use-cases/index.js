@@ -1,3 +1,4 @@
+import * as helpers from '../helpers';
 import {
   fileRepository,
   userRepository,
@@ -11,6 +12,7 @@ import makeGetFile from './get-file';
 export const createFile = makeCreateFile({
   fileRepository,
   userRepository,
+  helpers,
 });
 export const deleteFile = makeDeleteFile({
   fileRepository,
@@ -19,6 +21,7 @@ export const listFiles = makeListFiles({
   fileRepository,
 });
 export const getFile = makeGetFile({
+  helpers,
   fileRepository,
   userRepository,
 });
