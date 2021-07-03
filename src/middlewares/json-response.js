@@ -5,7 +5,7 @@ export default (req, res, next) => {
     let status = 'success';
     let message = options.message || null;
 
-    const errors = options.errors || null;
+    const error = options.error || null;
     const code = parseInt(res.statusCode || 200, 10);
 
     if (!options.message && code) {
@@ -25,7 +25,7 @@ export default (req, res, next) => {
       status,
       message,
       data,
-      errors,
+      error,
     });
   };
 

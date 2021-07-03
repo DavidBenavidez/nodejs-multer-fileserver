@@ -18,6 +18,9 @@ const FileSchema = new mongoose.Schema({
       'Uploaded file must have a name',
     ]
   },
+  size: {
+    type: Number,
+  },
   originalname: {
     type: String,
   },

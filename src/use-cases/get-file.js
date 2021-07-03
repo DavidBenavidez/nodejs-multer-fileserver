@@ -1,10 +1,10 @@
+import { File } from '../models';
+
 export default function makeGetFile() {
   return async function getFile(req) {
     const { publicKey } = req.params;
-    // Get file using publickey here
+    const file = await File.findOne({ publicKey });
 
-    return {
-      stream: 'asdfasdfasdfasdlfkasjdfkl ajsd;flkaj sd;lfkjas ;lkdfjas;lkfdj;lk'
-    };
+    return file;
   }
 }

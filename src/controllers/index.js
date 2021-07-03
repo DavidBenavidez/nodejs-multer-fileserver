@@ -3,12 +3,14 @@ import {
   createFile,
   deleteFile,
   getFile,
+  listFiles,
 } from '../use-cases';
 import makeFilesController from './files';
 
 
 export const filesController = makeFilesController({
   createFile,
-  deleteFile,
+  listFiles,
   getFile,
+  deleteFile,
 })

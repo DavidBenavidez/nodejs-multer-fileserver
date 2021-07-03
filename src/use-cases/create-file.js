@@ -29,7 +29,8 @@ export default function makeCreateFile() {
         filename,
         originalname,
         publicKey: timestamp,
-        privateKey: localIp,
+        privateKey: `${timestamp}-${localIp}`,
+        size,
       });
 
       console.log('Successfully created new file: ', newFile);
@@ -59,31 +60,5 @@ export default function makeCreateFile() {
         error,
       };
     }
-
-    // const { file } = req;
-    // const { path: srcPath, originalname } = file;
-    // const destPath = path.join(__dirname, '/' + originalname);
-
-    // const readStream = fs.createReadStream(srcPath);
-    // const writeStream = fs.createWriteStream(destPath);
-
-    // readStream.pipe(writeStream);
-
-    // readStream.on('end', () => {
-    //   // return res.send(req.file)
-    //   console.log({
-    //     description: 'Successfully uploaded file: ' + originalname,
-    //   })
-    //   return res.status(200).json({
-    //     description: 'Successfully uploaded file: ' + originalname,
-    //   })
-    // });
-
-    // readStream.on('error', (error) => res.status(500).json({error}));
-
-    // return {
-    //   publicKey: 'sample_public_key',
-    //   privateKey: 'sample_private_key',
-    // };
   }
 }

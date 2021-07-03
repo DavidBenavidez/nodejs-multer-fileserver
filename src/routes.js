@@ -2,6 +2,7 @@ import multer from 'multer';
 import path from 'path';
 import { Router } from 'express';
 import { filesController } from './controllers'
+import { validations } from './middlewares';
 
 const router = Router();
 const filename = (_, file, callback) => {
@@ -21,20 +22,17 @@ const upload = multer({
   // fileFilter,
  });
 
-// File owners
-router.get('/', function(_, res){
-  console.log(`path.resolve(__dirname, '../public')`);
-  console.log(path.resolve(__dirname, '../public'));
-  res.sendFile(path.resolve(__dirname, '../public/index.html'));
-});
-
-router.post('/files', [upload.single('sfile')], filesController.create);
-router.delete('/files/:privateKey', filesController.delete);
+ router.get('/', function(_, res){
+   res.sendFile(path.resolve(__dirname, '../public/index.html'));
+  });
 
 // File consumers
 router.get('/files/:publicKey', filesController.get);
-// router.get('/files', filesController.list);
+router.get('/files', filesController.list);
 
-// Update User bandwidths
-// router.use();
+// File owners
+router.post('/files', [upload.single('sfile'), validations.validateUpload], filesController.create);
+router.delete('/files/:privateKey', filesController.delete);
+
+
 export default router;
